@@ -66,7 +66,7 @@ const courses = [
 
 const setupDatabase = async () => {
   await Course.deleteMany();
-  courses.forEach(async course => await new Course(course).save());
+  for (const course of courses) await new Course(course).save();
 };
 
 module.exports = {

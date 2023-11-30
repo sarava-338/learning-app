@@ -17,11 +17,11 @@ afterAll(async () => {
 test('1. Viewing all the courses', async () => {
   const res = await request(app).get('/courses/get').expect(200);
   expect(res.body.length).toBe(5);
-  expect(res.body[0].coursename).toBe(courses[0].courseName);
-  expect(res.body[1].coursename).toBe(courses[1].courseName);
-  expect(res.body[2].coursename).toBe(courses[2].courseName);
-  expect(res.body[3].coursename).toBe(courses[3].courseName);
-  expect(res.body[4].coursename).toBe(courses[4].courseName);
+  expect(res.body[0].courseName).toBe(courses[0].courseName);
+  expect(res.body[1].courseName).toBe(courses[1].courseName);
+  expect(res.body[2].courseName).toBe(courses[2].courseName);
+  expect(res.body[3].courseName).toBe(courses[3].courseName);
+  expect(res.body[4].courseName).toBe(courses[4].courseName);
 });
 
 test('2. Enrolling a course', async () => {
@@ -37,13 +37,13 @@ test('3. Enrolling an already enrolled course', async () => {
 });
 
 test('4. Dropping a course', async () => {
-  await request(app).post(`/courses/drop/${courses[1]._id}`).expect(200);
+  await request(app).delete(`/courses/drop/${courses[1]._id}`).expect(200);
   const course = await Course.findById(courses[1]._id);
   expect(course.isApplied).toBe(false);
 });
 
 test('5. dropping an uenrolled course', async () => {
-  await request(app).post(`/courses/drop/${courses[2]._id}`).expect(403);
+  await request(app).delete(`/courses/drop/${courses[2]._id}`).expect(403);
   const course = await Course.findById(courses[2]._id);
   expect(course.isApplied).toBe(false);
 });
